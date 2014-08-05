@@ -1,0 +1,82 @@
+<div>
+  <div ng-switch on="create_dialog_state">
+    <div ng-switch-when="start">
+      <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="cancel()">&times;</button>
+          <h3>Create Lunaport load test</h3>
+      </div>
+      <div class="modal-body">
+        <form class="form-horizontal" name="token_form">
+            <div style="max-width: 400px; margin: 0 auto 10px;">
+              <button type="button" class="btn btn-primary btn-lg btn-block" ng-click="change_state('new')">Create from scratch</button>
+            </div>
+            <div style="max-width: 400px; margin: 0 auto 10px;">
+              <button type="button" class="btn btn-primary btn-lg btn-block" ng-click="change_state('import_arts')">Import artefacts(manuall test)</button>
+            </div>
+        </form>
+      </div>
+    </div>
+    <div ng-switch-when="new">
+        <div class="modal-header">
+            <h3>Create from scratch</h3>
+            Вам предлагается написать конфиг нового теста "с чистого листа" и запустить его.
+        </div>
+        <div class="modal-body">
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-success" ng-click="lll_launch()">Launch</button>
+            <button class="btn btn-primary" ng-click="change_state('start')">&larr; Back to choose</button>
+            <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+        </div>
+    </div>
+    <div ng-switch-when="import_arts" ng-controller="TestImportCtrl">
+      <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="cancel()">&times;</button>
+          <h3>Import test by sending artefacts</h3>
+          Новый тест будет создан из артефактов уже завершённого теста.<br>
+          В качестве артефактов нужно отправить <code>load.conf</code> и <code>phout.log</code>
+      </div>
+      <ANY ng-switch="upload_error.trigger">
+        <ANY ng-switch-when="true">
+          <div class="bs-callout bs-callout-warning">
+            <h4>Test can't be import because:</h4>
+            <p>{{upload_error.error_text}}</p>
+          </div>
+        </ANY>
+        <ANY ng-switch-default>
+        </ANY>
+      </ANY>
+      <form class="form-horizontal bs-example form-modal" role="form" name="case_form" >
+        <div class="form-group">
+          <label class="col-lg-2 control-label">
+            Case
+            <span class="asterisk">*</span>
+          </label>
+          <div class="col-lg-10">
+            <input name="case" type="text" ng-model="t_case" class="form-control" placeholder="Existing Lunaport case" typeahead="c.name for c in case_names_butch | filter:$viewValue |  limitTo:30" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-lg-2 control-label">
+            Load source
+            <span class="asterisk">*</span>
+          </label>
+          <div class="col-lg-10">
+            <input name="load_src" type="text" ng-model="load_src" class="form-control" placeholder="Load generation host(Tank) fqdn or ip_addr" typeahead="h for h in host_names_butch | filter:$viewValue | limitTo:30" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-lg-2 control-label">Artefacts
+            <span class="asterisk">*</span>
+          </label>
+          <div class="col-lg-10">
+            <input type="file" ng-file-select="onFileSelect($files)" multiple>
+          </div>
+        </div>
+      </form>
+      <div class="modal-footer">
+          <button class="btn btn-default" ng-click="change_state('start')">&larr; Back to choose</button>
+          <button class="btn btn-primary" ng-click="cretae_with_arts()">Import</button>
+      </div>
+    </div>
+</div>

@@ -1,0 +1,50 @@
+<div class="container" mousetrap-keypress="case_lst_tbl_pager">
+  <div class="page-header header-borderless">
+    <h1>
+      Cases
+      <button type="button" class="btn btn-primary pull-right" ng-click="go_to_case_new_page()">New</button>
+    </h1>
+    <br>
+    <div class="input-group" autofocus>
+      <input type="text" placeholder="start typing case name to search" class="form-control" ng-model="lookup_input" typeahead="c.name for c in case_names_butch | filter:$viewValue | limitTo:30" typeahead-on-select="on_search_select($item, $model, $label)" autofocus>
+      <span class="input-group-btn">
+        <button class="btn btn-default" type="button">
+          <i class="glyphicon glyphicon-search"></i>
+        </button>
+      </span>
+    </div>
+  </div>
+  <table class="table t-cases">
+    <thead>
+      <tr>
+        <th>id - name</th>
+        <th>description</th>
+        <th>changed_at</th>
+      </tr>
+    </thead>
+    <tr ng-repeat="c in case_lst_tbl.content">
+      <td class="fixwidth">
+        <a href="/cases/{{c.id}}">{{c.id}} - {{c.name}}</a></li>
+      </td>
+      <td class="desc"><div class="b-desc">{{c.descr}}</div></td>
+      <td class="fixwidth" tooltip-placement="left" tooltip="{{c.changed_at_pp.long}}">{{c.changed_at_pp.short}}</td>
+  </table>
+  <ANY ng-switch="case_lst_tbl.pagination">
+    <ANY ng-switch-when="false">
+    </ANY>
+    <ANY ng-switch-default>
+      <div style="text-align: center">
+        <div class="btn-group" style="text-align: center">
+          <button type="button" class="btn btn-default" ng-model="case_lst_tbl.per_page" btn-radio="10">10</button>
+          <button type="button" class="btn btn-default" ng-model="case_lst_tbl.per_page" btn-radio="20">20</button>
+          <button type="button" class="btn btn-default" ng-model="case_lst_tbl.per_page" btn-radio="50">50</button>
+          <button type="button" class="btn btn-default" ng-model="case_lst_tbl.per_page" btn-radio="100">100</button>
+        </div>
+      </div>
+      <ul class="pager">
+        <li class="next" ng-class="case_lst_tbl.next_btn_class" ng-click="case_lst_tbl.go_next()"><a href="#">Older &rarr;</a></li>
+        <li class="previous" ng-class="case_lst_tbl.prev_btn_class" ng-click="case_lst_tbl.go_prev()"><a href="#">&larr; Newer</a></li>
+      </ul>
+    </ANY>
+  </ANY>
+</div><!-- /container -->

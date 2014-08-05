@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="Lunaport">
+<head>
+    <meta charset="utf-8">
+    <title>^^**Dev Lunaport**</title>
+    <meta name="description" content="">
+    <meta name="author" content="dev">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="dns-prefetch" href="//yyy.bbb.org">
+    <link href="/static/css/bootstrap/bootstrap.css" rel="stylesheet">
+    <link href="/static/css/bootstrap/docs.css" rel="stylesheet">
+    <link href="/static/css/bootstrap/pygments-manni.css" rel="stylesheet">
+    <link href="/static/css/ng-table.css" rel="stylesheet">
+    <link href="/static/css/toaster.css" rel="stylesheet">
+    <link href="/static/css/lunaport.css" rel="stylesheet">
+    <link href="/static/css/highlightjs-github.css" rel="stylesheet">
+    <link href="/static/css/ladda-themeless.css" rel="stylesheet">
+    <link href="/static/css/xeditable.css" rel="stylesheet">
+<!--
+    <link href="/static/css/select2-bootstrap.css" rel="stylesheet">
+    <link href="/static/css/select2.css" rel="stylesheet">
+-->
+<!--
+    <link href="/static/css/select.css" rel="stylesheet">
+-->
+</head>
+
+<body>
+    <div id="wrap">
+      <div ng-include="'/static/tmpl/header.html'"></div>
+      <toaster-container toaster-options="{'time-out': 3000}"></toaster-container>
+      <div ng-view ng-animate="{enter:'fade-enter'}"></div>
+    </div>
+    <div ng-include="'/static/tmpl/footer.html'"></div>
+
+<!-- 3rd party js libs -->
+<script src="/static/js/3d_party/jq/jquery-2.0.3.js"></script>
+
+<script src="/static/js/3d_party/bootstrap/bootstrap.js"></script>
+<script src="/static/js/3d_party/bootstrap/affix.js"></script>
+
+<script src="/static/js/3d_party/misc/underscore.js"></script>
+<script src="/static/js/3d_party/misc/underscore.string.js"></script>
+<script src="/static/js/3d_party/misc/amplify.js"></script>
+<script src="/static/js/3d_party/misc/moment.js"></script>
+<script src="/static/js/3d_party/misc/mousetrap.js"></script>
+<script src="/static/js/3d_party/misc/ace/ace.js"></script>
+<script src="/static/js/3d_party/misc/ace/ext-language_tools.js"></script>
+<script src="/static/js/3d_party/misc/highlight.min.js"></script>
+<script src="/static/js/3d_party/misc/showdown.js"></script>
+<script src="/static/js/3d_party/misc/spin.js"></script>
+<script src="/static/js/3d_party/misc/ladda.js"></script>
+
+<script src="/static/js/3d_party/angular/angular-file-upload-html5-shim.js"></script>
+<script src="/static/js/3d_party/angular/angular.js"></script>
+<script src="/static/js/3d_party/angular/dist_patched/ui-bootstrap-0.6.0-SNAPSHOT.js"></script>
+<script src="/static/js/3d_party/angular/dist_patched/ui-bootstrap-tpls-0.6.0-SNAPSHOT.js"></script>
+
+
+<script src="/static/js/3d_party/angular/ng-table.src.js"></script>
+<script src="/static/js/3d_party/angular/toaster.js"></script>
+<script src="/static/js/3d_party/angular/angular-mousetrap.js"></script>
+<script src="/static/js/3d_party/angular/ui-ace.js"></script>
+<script src="/static/js/3d_party/angular/truncate.js"></script>
+<script src="/static/js/3d_party/angular/scrollfix.js"></script>
+<script src="/static/js/3d_party/angular/ng-scrollto.js"></script>
+<script src="/static/js/3d_party/angular/angular-highlightjs.js"></script>
+<script src="/static/js/3d_party/angular/markdown.js"></script>
+<script src="/static/js/3d_party/angular/angular-file-upload.js"></script>
+<script src="/static/js/3d_party/angular/elastic.js"></script>
+<script src="/static/js/3d_party/angular/elastic.js"></script>
+<script src="/static/js/3d_party/angular/xeditable.js"></script>
+
+<!-- Lunaport app -->
+<script src="/static/js/app/const.js"></script>
+<script src="/static/js/app/helpers.js"></script>
+<script src="/static/js/app/ya.js"></script>
+
+<script src="/static/js/app/app.js"></script>
+<script src="/static/js/app/routes.js"></script>
+
+<!-- services -->
+<script src="/static/js/app/services/runtime_cache.js"></script>
+<script src="/static/js/app/services/util.js"></script>
+<script src="/static/js/app/services/shared.js"></script>
+<script src="/static/js/app/services/alerts_shared.js"></script>
+<script src="/static/js/app/services/logs_provider.js"></script>
+
+<script src="/static/js/app/services/data_factory1/base.js"></script>
+<script src="/static/js/app/services/data_factory1/mix_in_error_hndl.js"></script>
+<script src="/static/js/app/services/data_factory1/mix_in_test.js"></script>
+<script src="/static/js/app/services/data_factory1/mix_in_job.js"></script>
+<script src="/static/js/app/services/data_factory1/mix_in_case.js"></script>
+<script src="/static/js/app/services/data_factory1/mix_in_notification.js"></script>
+<script src="/static/js/app/services/data_factory1/mix_in_eval.js"></script>
+<script src="/static/js/app/services/data_factory1/mix_in_issue.js"></script>
+<script src="/static/js/app/services/data_factory1/mix_in_token.js"></script>
+<script src="/static/js/app/services/data_factory1/mix_in_status.js"></script>
+<script src="/static/js/app/services/data_factory1/mix_in_host.js"></script>
+<script src="/static/js/app/services/data_factory1/mix_in_ammo.js"></script>
+<script src="/static/js/app/services/data_factory1/mix_in_user.js"></script>
+<script src="/static/js/app/services/data_factory1/mix_in_hook.js"></script>
+<!-- directives -->
+<script src="/static/js/app/directives/scroll_spy.js"></script>
+<script src="/static/js/app/directives/ladda.js"></script>
+<script src="/static/js/app/directives/misc.js"></script>
+
+<!-- controllers -->
+<script src="/static/js/app/controllers/notfound.js"></script>
+<script src="/static/js/app/controllers/version.js"></script>
+<script src="/static/js/app/controllers/settings.js"></script>
+<script src="/static/js/app/controllers/alert.js"></script>
+<script src="/static/js/app/controllers/status.js"></script>
+
+<script src="/static/js/app/controllers/test/lunapark.js"></script>
+<script src="/static/js/app/controllers/test/list.js"></script>
+<script src="/static/js/app/controllers/test/detail.js"></script>
+<script src="/static/js/app/controllers/test/detail_statistics.js"></script>
+<script src="/static/js/app/controllers/test/detail_statistics_tags.js"></script>
+<script src="/static/js/app/controllers/test/detail_evaluation.js"></script>
+<script src="/static/js/app/controllers/test/detail_arts.js"></script>
+<script src="/static/js/app/controllers/test/import.js"></script>
+
+<script src="/static/js/app/controllers/case/list.js"></script>
+<script src="/static/js/app/controllers/case/detail.js"></script>
+<script src="/static/js/app/controllers/case/edit.js"></script>
+<script src="/static/js/app/controllers/case/new.js"></script>
+<script src="/static/js/app/controllers/case/hooks.js"></script>
+
+<script src="/static/js/app/controllers/ammo/list.js"></script>
+<script src="/static/js/app/controllers/ammo/detail.js"></script>
+
+<script src="/static/js/app/controllers/issue_detail.js"></script>
+
+
+<script>
+  window.define = ace.define;
+  console.info('init...');
+</script>
+</body>
+</html>

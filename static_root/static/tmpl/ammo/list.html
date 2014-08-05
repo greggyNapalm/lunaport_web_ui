@@ -1,0 +1,45 @@
+<div class="container" mousetrap-keypress="ammo_lst_tbl_pager">
+  <div class="page-header header-borderless">
+    <h1>
+      Ammos
+      <button type="button" class="btn btn-primary pull-right" ng-click="open_ammo_new_modal()">New</button>
+    </h1>
+    <br>
+  </div>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>id - name</th>
+        <th>case</th>
+        <th>description</th>
+        <th>added_at</th>
+      </tr>
+    </thead>
+    <tr ng-repeat="a in ammo_lst_tbl.content">
+      <td class="fixwidth">
+        <a href="/ammo/{{a.id}}/">{{a.id}} - {{a.name}}</a></li>
+      </td>
+      <td>{{a.case.name}}</td>
+      <td class="desc"><div class="b-desc">{{a.descr}}</div></td>
+      <td class="fixwidth" tooltip-placement="left" tooltip="{{a.added_at_pp.long}}">{{a.added_at_pp.short}}</td>
+    </tr>
+  </table>
+  <ANY ng-switch="ammo_lst_tbl.pagination">
+    <ANY ng-switch-when="false">
+    </ANY>
+    <ANY ng-switch-default>
+      <div style="text-align: center">
+        <div class="btn-group" style="text-align: center">
+          <button type="button" class="btn btn-default" ng-model="ammo_lst_tbl.per_page" btn-radio="10">10</button>
+          <button type="button" class="btn btn-default" ng-model="ammo_lst_tbl.per_page" btn-radio="20">20</button>
+          <button type="button" class="btn btn-default" ng-model="ammo_lst_tbl.per_page" btn-radio="50">50</button>
+          <button type="button" class="btn btn-default" ng-model="ammo_lst_tbl.per_page" btn-radio="100">100</button>
+        </div>
+      </div>
+      <ul class="pager">
+        <li class="next" ng-class="ammo_lst_tbl.next_btn_class" ng-click="ammo_lst_tbl.go_next()"><a href="#">Older &rarr;</a></li>
+        <li class="previous" ng-class="ammo_lst_tbl.prev_btn_class" ng-click="ammo_lst_tbl.go_prev()"><a href="#">&larr; Newer</a></li>
+      </ul>
+    </ANY>
+  </ANY>
+</div><!-- /container -->

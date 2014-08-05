@@ -1,0 +1,52 @@
+<div>
+<!--
+  <div class="modal-header">
+      <h3>Create a new token</h3>
+      descr:{{token_descr | json}}
+  </div>
+  <div class="modal-body">
+-->
+  <div ng-switch on="token_posted">
+    <div ng-switch-when="false">
+      <div class="modal-header">
+          <h3>Create a new token</h3>
+      </div>
+      <div class="modal-body">
+        <form class="form-horizontal" name="token_form">
+            <label class="col-lg-2 control-label">
+              Description<span class="asterisk">*</span>
+            </label>
+            <textarea class="form-control f-new-token" rows="3" ng-model="$parent.token_descr"></textarea>
+        </form>
+      </div>
+      <div class="modal-footer">
+          <button class="btn btn-primary" ng-click="ok(token_descr)">OK</button>
+          <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+      </div>
+    </div>
+    <div ng-switch-when="true">
+      <div class="modal-header">
+          <h3>Token created</h3>
+          <div class="bs-callout bs-callout-danger">
+            Server do not store your passwords, copy and save it.
+          </div>
+      </div>
+      <div class="modal-body">
+        <dl class="dl-horizontal">
+          <dt>username</dt>
+          <dd>{{token.name}}</dd>
+        </dl>
+        <dl class="dl-horizontal">
+          <dt>password</dt>
+          <dd>{{token.passwd}}</dd>
+        </dl>
+      </div>
+      <div class="b-api-doc">
+          <a href="http://wiki.domain.ru/GrigorijjKomissarov/luna-port/api">  API documenstation</a>
+      </div>
+      <div class="modal-footer">
+          <button class="btn btn-success" ng-click="ok()">Done</button>
+      </div>
+    </div>
+  </div>
+</div>

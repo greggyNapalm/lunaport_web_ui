@@ -1,0 +1,79 @@
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>status</td>
+      <td>{{test.status}}</td>
+    </tr>
+    <tr>
+      <td>duration</td>
+      <td>{{test.duration || "-" }}</td>
+    </tr>
+    <tr>
+      <td>started_at</td>
+      <td>{{test.started_at_loc.long}}</td>
+    </tr>
+    <tr>
+      <td>finished_at</td>
+      <td>{{test.finished_at_loc.long}}</td>
+    </tr>
+    <tr>
+      <td>initiator</td>
+      <td><img height="28" width="28" style="border-radius: 4px" ng-src="{{test.avatarUrl}}"> {{test.initiator}}</td>
+    </tr>
+    <tr>
+      <td>load_src</td>
+      <td>
+        {{test.load_src}}
+        <a href="{{test.load_src_ext_lnk}}" role="button" class="btn btn-default btn-xs">{{load_src.line.name || "Golem"}}</a>
+      </td>
+    </tr>
+    <tr>
+      <td>load_dst</td>
+      <td>
+        {{test.load_dst}}
+        <a href="{{test.load_dst_ext_lnk}}" role="button" class="btn btn-default btn-xs">{{load_dst.line.name || "Golem"}}</a>
+      </td>
+    </tr>
+    <tr>
+      <td>engine</td>
+      <td>{{test.engine}}</td>
+    </tr>
+    <tr>
+      <td>ammo</td>
+      <td><a href="/ammo/{{test.ammo_id}}/">{{test.ammo_id || "-"}}</a></td>
+      <td>{{test.}}</td>
+    </tr>
+    <tr>
+      <td>logs</td>
+      <td>
+        <button class="btn btn-xs btn-default" ng-click="trigger_logs_tbl()">{{logs_trigger.current.btn_txt || "▶ Show"}}</button>
+        <a href="{{logs_ui_url}}">Logserver</a>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<div ng-show="logs_trigger.current.display">
+  <table class="table" >
+    <thead>
+      <tr>
+        <th>Date</th>
+        <th>Level</th>
+        <th>Facility</th>
+        <th>Message</th>
+      </tr>
+    </thead>
+    <tr ng-repeat="e in log_entries" ng-class="{'danger': e.level_str == 'error'}">
+      <td>{{e.t_local}}</td>
+      <td>{{e.level_str}}</td>
+      <td>{{e.facility}}</td>
+      <td>{{e.msg}}</td>
+    </tr>
+  </table>
+</div>
+

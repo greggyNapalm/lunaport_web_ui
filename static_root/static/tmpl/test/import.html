@@ -1,0 +1,139 @@
+<div class="container" mousetrap-keypress="test_pager" ng-file-drop="onFileSelect($files)">
+  <div class="row" scroll-spy>
+      <div class="col-md-3 sidebar">
+        <div class="bs-sidebar hidden-print" role="complementary" ui-scrollfix>
+          <ul class="nav bs-sidenav">
+              <li spy="lll">
+                <a scroll-to="lll">lll</a>
+              </li>
+              <li spy="files">
+                <a scroll-to="files">Files</a>
+              </li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-md-9 content">
+          <div class="page-header header-borderless">
+            <h1 id="lll">lll</h1>
+            Import test from lll service, providing its metadata.
+            <h3>#{{lll_test_id}} - {{lll_repr.name}}</h3>
+            {{lll_repr.descr}}
+            <div>
+              <ANY ng-switch="error">
+                <ANY ng-switch-when="true">
+                  <div class="bs-callout bs-callout-warning">
+                    <h4>Test can't be automatically import from lll</h4>
+                    <p>{{err_msg}}</p>
+                  </div>
+                </ANY>
+                <ANY ng-switch-default>
+                </ANY>
+              </ANY>
+            </div>
+           <button type="button" class="btn btn-primary pull-right" ng-class="{ disabled: !import_ready}" ng-click="import_lll_test()">Import</button>
+           <table class="table table-striped luna-import">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Value</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Case<span class="asterisk">*</span></td>
+                <td>
+                  <form name="case_form">
+                    <div class="col-lg-8">
+                      <input class="form-control" type="text" name="case" ng-model="t_case"  typeahead="c.name for c in case_names_butch | filter:$viewValue | limitTo:30" placeholder="Existing Lunaport case">
+                    </div>
+                  </form>
+                </td>
+              </tr>
+              <tr>
+                <td>lll test id<span class="asterisk">*</span></td>
+                <td>
+                <form name="case_form" class="lllTestId">
+                  <div class="col-lg-8">
+                    <ul class="pager">
+                      <li class="next" ng-click="lll_id_incr()"><a href="#">&rarr;</a></li>
+                      <li class="previous" ng-click="lll_id_desc()"><a href="#">&larr;</a></li>
+                    </ul>
+                    <input class="form-control" type="text" ng-model="lll_test_id" placeholder="lll test id">
+                  </div>
+                </form>
+                </td>
+              </tr>
+              <tr>
+                <td>Tank test id<span class="asterisk">*</span></td>
+                <td>
+                <form name="case_form">
+                  <div class="col-lg-8">
+                    <input class="form-control" type="text" ng-model="lll_repr.tank_test_id" placeholder="Tank test id">
+                  </div>
+                </form>
+                </td>
+              </tr>
+              <tr>
+                <td>Tank fqdn</td>
+                <td>{{lll_repr.tank_fqdn || '-'}}</td>
+              </tr>
+              <tr>
+                <td>Person</td>
+                <td>
+                  <img height="28" width="28" style="border-radius: 4px" ng-src="{{lll_repr.person_avatar_url}}">
+                  {{lll_repr.person || '-'}}
+                </td>
+              </tr>
+              <tr>
+                <td>Issue</td>
+                <td>{{lll_repr.issue || '-'}}</td>
+              </tr>
+              <tr>
+                <td>Engine</td>
+                <td>{{lll_repr.engine || '-'}}</td>
+              </tr>
+            </tbody>
+          </table> 
+
+          </div>
+          <div class="page-header header-borderless">
+            <h1 id="files">Files</h1>
+            Import test by sending artefacts: phout.log and load.ini.
+            <div class="progress">
+              <div class="progress-bar" role="progressbar" style="width: {{dynamic}}%;"> </div>
+            </div>
+          <table class="table table-striped luna-import">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Value</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Case<span class="asterisk">*</span></td>
+                <td>
+                  <form name="case_form">
+                    <div class="col-lg-8">
+                      <input class="form-control" type="text" name="case" ng-model="t_case"  typeahead="c.name for c in case_names_butch | filter:$viewValue | limitTo:30" placeholder="Existing Lunaport case">
+                    </div>
+                  </form>
+                </td>
+              </tr>
+              <tr>
+                <td>Load source<span class="asterisk">*</span></td>
+                <td>
+                <form name="case_form">
+                  <div class="col-lg-8">
+                    <input class="form-control" type="text" ng-model="load_src" typeahead="h for h in host_names_butch | filter:$viewValue | limitTo:30" placeholder="Load generation host(Tank) fqdn or ip_addr">
+                  </div>
+                </form>
+                </td>
+              </tr>
+            </tbody>
+          </table> 
+            <input type="file" ng-file-select="onFileSelect($files)" multiple>
+          </div>
+      </div>
+  </div>
+</div>

@@ -1,0 +1,45 @@
+<div class="container">
+  <div class="row" scroll-spy>
+      <div class="col-md-3 sidebar">
+        <div class="bs-sidebar hidden-print" role="complementary" ui-scrollfix>
+          <ul class="nav bs-sidenav">
+              <!--
+              <li spy="notifications">
+                <a scroll-to="notifications">Notifications</a>
+              </li>
+              <li spy="profile">
+                <a scroll-to="profile">Profile</a>
+              </li>
+              -->
+              <li spy="tokens">
+                <a scroll-to="tokens">Tokens</a>
+              </li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-md-9 content">
+          <div class="page-header header-borderless">
+            <h1 id="tokens">
+              Tokens
+              <button ng-click="open_token_modal()" class="btn btn-primary pull-right">Create new token</button>
+            </h1>
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>name</th>
+                  <th>description</th>
+                  <th>delete</th>
+                </tr>
+              </thead>
+              <tr ng-repeat="t in tokens">
+                <td>{{t.name}}</td>
+                <td>{{t.descr}}</td>
+                <td>
+                  <button ng-click="delete_token(t.id)" class="btn btn-danger">Delete</button>
+                </td>
+              </tr>
+            </table>
+          </div>
+      </div>
+  </div>
+</div>

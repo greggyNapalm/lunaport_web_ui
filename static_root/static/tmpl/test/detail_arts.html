@@ -1,0 +1,13 @@
+<div ng-controller="TestDetailArtsCtrl">
+<h3>
+  Test artefacts available via Tank API
+ <button popover="{{popover.arts}}" class="btn btn-default btn-xs">?</button>
+</h3>
+<table ng-table="tbl_arts" show-filter="true" class="table table-striped">
+  <tr ng-repeat="art in tbl_data_arts">
+    <td title="Name" filter="{ 'name': 'text' }">{{art.name}}</td>
+    <td title="'Public link'"><a href="{{art.link_public}}"><i class="glyphicon glyphicon-download" style='font-size: 20px'></a></td>
+    <td title="'Direct Link'"><a href="{{art.link}}">Tank API</a></td>
+  </tr>
+</table>
+</div>

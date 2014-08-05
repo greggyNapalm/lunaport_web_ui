@@ -1,0 +1,211 @@
+<div class="container">
+  <div class="row" scroll-spy>
+      <div class="col-md-3 sidebar">
+        <div class="bs-sidebar hidden-print" role="complementary" ui-scrollfix>
+          <ul class="nav bs-sidenav">
+              <li spy="tests">
+                <a scroll-to="tests">Tests</a>
+              </li>
+              <li spy="ammos">
+                <a scroll-to="ammos">Ammos</a>
+              </li>
+              <li spy="oracle">
+                <a scroll-to="oracle">Oracle</a>
+              </li>
+              <li spy="notifications">
+                <a scroll-to="notifications">Notifications</a>
+              </li>
+              <li spy="hooks">
+                <a scroll-to="hooks">Hooks</a>
+              </li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-md-9 content">
+          <div class="page-header header-borderless">
+            <ol class="breadcrumb">
+              <li><a href="/cases" tooltip-placement="bottom" tooltip="cases list">cases</a></li>
+              <li class="active">{{t_case.name}}</li>
+            </ol>
+            <h2>{{t_case.name}}
+            <div class="btn-group pull-right">
+              <button type="button" class="btn btn-primary" ng-click="go_to_edit_page()">Edit</button>
+              <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                <span class="caret"></span>
+              </button>
+              <ul class="dropdown-menu" role="menu">
+                <li><a ng-click="go_to_case_new_page()">Duplicate</a></li>
+                <li><a ng-click="open_modal_badge()">Badges</a></li>
+              </ul>
+            </div>
+            </h2>
+            <div btf-markdown="t_case.descr"></div>
+            <br>
+            <button popover="{{popover.root_etalon}}" class="btn btn-default btn-xs">?</button><br>
+            <ANY ng-switch="t_case.root_test_id">
+              <ANY ng-switch-when="null">
+                <strong>Root test: Not defined</strong><br>
+              </ANY>
+              <ANY ng-switch-default>
+                <a href="/tests/{{t_case.root_test_id}}/all">Root test: #{{t_case.root_test_id}}</a><br>
+              </ANY>
+            </ANY>
+            <ANY ng-switch="t_case.etalon_test_id">
+              <ANY ng-switch-when="null">
+                <strong>Etalon test: Not defined</strong><br>
+              </ANY>
+              <ANY ng-switch-default>
+                <a href="/tests/{{t_case.etalon_test_id}}/all">Etalon test: #{{t_case.etalon_test_id}}</a><br> 
+              </ANY>
+            </ANY>
+          </div>
+          <div class="page-header header-borderless">
+            <h1 id="tests">Tests</h1>
+            <div ng-controller="TestListCtrl" ng-init="init(true)">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th></th>
+                    <th>id - name</th>
+                    <th>status</th>
+                    <th>initiator</th>
+                    <th>issue</th>
+                    <th>finished_at</th>
+                  </tr>
+                </thead>
+                <tr ng-repeat="t in testLstTbl.content">
+                  <td><span class="test-resolution-{{t.resolution}}"></span></td>
+                  <td>
+                    <a href="/tests/{{t.id}}/all">{{t.id}} - {{t.name | characters:45 :true}}</a></li>
+                  </td>
+                  <td>{{t.status}}</td>
+                  <td>{{t.initiator}}</td>
+                  <td>{{t.issue}}</td>
+                  <td tooltip-placement="left" tooltip="{{t.finished_at.long}}">{{t.finished_at.short}}</td>
+                </tr>
+              </table>
+              <div style="text-align: center">
+                <div class="btn-group" style="text-align: center">
+                    <button type="button" class="btn btn-default" ng-model="testLstTbl.perPage" btn-radio="10">10</button>
+                    <button type="button" class="btn btn-default" ng-model="testLstTbl.perPage" btn-radio="20">20</button>
+                    <button type="button" class="btn btn-default" ng-model="testLstTbl.perPage" btn-radio="50">50</button>
+                    <button type="button" class="btn btn-default" ng-model="testLstTbl.perPage" btn-radio="100">100</button>
+                </div>
+              </div>
+              <ul class="pager">
+                <li class="next" ng-class="testLstTbl.nextBtnClass" ng-click="testLstTbl.goNext()"><a href="#">Older &rarr;</a></li>
+                <li class="previous" ng-class="testLstTbl.prevBtnClass" ng-click="testLstTbl.goPrev()"><a href="#">&larr; Newer</a></li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="page-header header-borderless">
+            <h1 id="ammos">Ammos</h1>
+            <div ng-controller="AmmoListCtrl">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>id - name</th>
+                    <th>description</th>
+                    <th>added_at</th>
+                  </tr>
+                </thead>
+                <tr ng-repeat="a in ammo_lst_tbl.content">
+                  <td class="fixwidth">
+                    <a href="/ammo/{{a.id}}/">{{a.id}} - {{a.name}}</a></li>
+                  </td>
+                  <td class="desc"><div class="b-desc">{{a.descr}}</div></td>
+                  <td class="fixwidth" tooltip-placement="left" tooltip="{{a.added_at_pp.long}}">{{a.added_at_pp.short}}</td>
+                </tr>
+              </table>
+              <div style="text-align: center">
+                <div class="btn-group" style="text-align: center">
+                    <button type="button" class="btn btn-default" ng-model="testLstTbl.perPage" btn-radio="10">10</button>
+                    <button type="button" class="btn btn-default" ng-model="testLstTbl.perPage" btn-radio="20">20</button>
+                    <button type="button" class="btn btn-default" ng-model="testLstTbl.perPage" btn-radio="50">50</button>
+                    <button type="button" class="btn btn-default" ng-model="testLstTbl.perPage" btn-radio="100">100</button>
+                </div>
+              </div>
+              <ul class="pager">
+                <li class="next" ng-class="testLstTbl.nextBtnClass" ng-click="testLstTbl.goNext()"><a href="#">Older &rarr;</a></li>
+                <li class="previous" ng-class="testLstTbl.prevBtnClass" ng-click="testLstTbl.goPrev()"><a href="#">&larr; Newer</a></li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="page-header header-borderless">
+            <h1 id="oracle">
+              Oracle
+              <button popover="{{popover.oracle}}" class="btn btn-default btn-xs">?</button>
+            </h1>
+            <div hljs source=t_case.oracle_pp></div>
+          </div>
+          <div class="page-header header-borderless">
+            <h1 id="notifications">Notifications</h1>
+            <form name="notification_form" class="form-inline" role="form">
+              <h3>Common - informs the group of people</h3>
+              <div class="pantagraph-inline">
+                <div class="p-load">
+                <h4>Issue tracker</h4>
+                -
+                <p>Robot will post comment to JIRA/StarTrack on enevts</p>
+                <img ng-show="waiting.issue_tracker" src="/static/img/ajax-loader.gif">
+                </div>
+              </div>
+              <label>
+                <input type="checkbox" ng-model="notifcn_tracker.on_start">on_start
+              </label>
+              <label>
+                <input type="checkbox" ng-model="notifcn_tracker.on_finish">on_finish
+              </label>
+              <label>
+                <input type="checkbox" ng-model="notifcn_tracker.on_failed">on_finish(resolution failed only)
+              </label>
+              <br><br>
+              <div class="pantagraph-inline">
+                <div class="p-load">
+                <h3>
+                  Individual - informs only You
+                <h3>
+                <img ng-show="waiting.notifcn_user" src="/static/img/ajax-loader.gif">
+                </div>
+              </div>
+              <div class="pantagraph-inline">
+                <h4>XMPP</h4>
+                -
+                <p>Robot will send jabber message</p>
+              </div>
+              <label>
+                <input type="checkbox" ng-model="notifcn_user.xmpp.on_start">on_start
+              </label>
+                 
+              <label>
+                <input type="checkbox" ng-model="notifcn_user.xmpp.on_finish">on_finish
+              </label>
+              <label>
+                <input type="checkbox" ng-model="notifcn_user.xmpp.on_failed">on_finish(resolution failed only)
+              </label>
+              <br><br>
+              <div class="pantagraph-inline">
+                <h4>EMAIL</h4>
+                -
+                <p>Robot will send email message</p>
+              </div>
+              <label>
+                <input type="checkbox" ng-model="notifcn_user.email.on_start">on_start
+              </label>
+              <label>
+                <input type="checkbox" ng-model="notifcn_user.email.on_finish">on_finish
+              </label>
+              <label>
+                <input type="checkbox" ng-model="notifcn_user.email.on_failed">on_finish(resolution failed only)
+              </label>
+            </form>
+          </div>
+          <div class="page-header header-borderless">
+            <h1 id="hooks">Hooks</h1>
+            <div ng-include="'/static/tmpl/case/hooks.html'"></div>
+          </div>
+      </div>
+  </div>
+</div>

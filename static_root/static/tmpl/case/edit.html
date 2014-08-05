@@ -1,0 +1,114 @@
+<div class="container">
+  <div class="row" scroll-spy>
+      <div class="col-md-3 sidebar">
+        <div class="bs-sidebar hidden-print" role="complementary" ui-scrollfix>
+          <ul class="nav bs-sidenav">
+              <li spy="definition">
+                <a scroll-to="definition">Definition</a>
+              </li>
+              <li spy="notifications">
+                <a scroll-to="notifications">Notifications</a>
+              </li>
+              <li spy="hooks">
+                <a scroll-to="hooks">Hooks</a>
+              </li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-md-9 content">
+          <div class="page-header header-borderless">
+            <ol class="breadcrumb">
+              <li><a href="/cases" tooltip-placement="bottom" tooltip="cases list">cases</a></li>
+              <li><a href="/cases/{{t_case.id}}">{{t_case.name}}</a></li>
+              <li class="active">edit</li>
+            </ol>
+            <h2>{{t_case.name}}
+            <button type="button" class="btn btn-primary pull-right" ng-class="{ disabled: !diff_ready}" ng-click="patch_case()">Save</button>
+            </h2>
+            <div btf-markdown="t_case.descr"></div>
+          </div>
+          <div class="page-header header-borderless" id="definition">
+            <form class="form-horizontal bs-example" role="form" name="case_form">
+              <div class="form-group">
+                <label class="col-lg-2 control-label">Etalon test</label>
+                <div class="col-lg-10">
+                  <input type="text" name="etalon_test" ng-model="t_case.etalon_test_id" ng-pattern="/^([0-9]*)|(null)$/" class="form-control" placeholder="Etalon test id">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-lg-2 control-label">Root test</label>
+                <div class="col-lg-10">
+                  <input type="text" name="root_test" ng-model="t_case.root_test_id" ng-pattern="/^([0-9]*)|(null)$/" class="form-control" placeholder="Root test id">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-lg-2 control-label">Description</label>
+                <div class="col-lg-10">
+                  <textarea name="descr" class="form-control f-new-token msd-elastic" rows="3" ng-model="t_case.descr"></textarea>
+                </div>
+              </div>
+              <label class="col-lg-2 control-label">
+                Oracle
+                <span class="asterisk">*</span>
+              </label>
+              <div ui-ace="{
+                useWrapMode : true,
+                showGutter: true,
+                theme:'github',
+                mode: 'json',
+                onLoad: ace_loaded,
+                onChange: ace_changed
+              }" style="height: {{ace_height}}px">
+              </div>
+            </form>
+          </div>
+          <div class="page-header header-borderless">
+            <h1 id="notifications">Notifications</h1>
+            <form name="notification_form" class="form-inline" role="form">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>on start</th>
+                    <th>on finish</th>
+                    <th>on finish(verdict failed only)</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>issue tracker comment</td>
+                    <td><input type="checkbox" ng-model="notifcn.issue_tracker.on_start"></td>
+                    <td><input type="checkbox" ng-model="notifcn.issue_tracker.on_finish"></td>
+                    <td><input type="checkbox" ng-model="notifcn.issue_tracker.on_failed"></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <img height="28" width="28" style="border-radius: 4px" ng-src="{{usr_settings.avatar_url}}">
+                      {{usr_settings.login}} - XMPP
+                    </td>
+                    <td><input type="checkbox" ng-model="notifcn.xmpp.on_start"></td>
+                    <td><input type="checkbox" ng-model="notifcn.xmpp.on_finish"></td>
+                    <td><input type="checkbox" ng-model="notifcn.xmpp.on_failed"></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <img height="28" width="28" style="border-radius: 4px" ng-src="{{usr_settings.avatar_url}}">
+                      {{usr_settings.login}} - email
+                    </td>
+                    <td><input type="checkbox" ng-model="notifcn.email.on_start"></td>
+                    <td><input type="checkbox" ng-model="notifcn.email.on_finish"></td>
+                    <td><input type="checkbox" ng-model="notifcn.email.on_failed"></td>
+                  </tr>
+                </tbody>
+              </table>
+            </form>
+          </div>
+          <div class="page-header header-borderless">
+            <h1 id="hooks">Hooks</h1>
+            {{user | json}}
+            <br>
+            <a href="#" editable-text="user.name">{{ user.name || "empty" }}</a>
+          </div>
+      </div>
+  </div>
+</div>

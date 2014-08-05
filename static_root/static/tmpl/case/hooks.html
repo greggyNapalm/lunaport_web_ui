@@ -1,0 +1,63 @@
+<div ng-controller="HooksCtrl">
+<h3>
+  Existing
+</h3>
+<ANY ng-switch="flags.hooks_regs_was_found">
+  <ANY ng-switch-when="true">
+    <form class="form-inline" role="form" name="existing_hook_regs_form">
+      <div ng-repeat="r in hooks_regs">
+        <div class="form-group">
+          <input ng-model="hooks_regs[$index].hook.name" type="text" class="form-control" disabled>
+        </div>
+        <div class="form-group" ng-class="{ 'has-error' : hooks_regs[$index].is_cfg_malformed }">
+          <input ng-model="hooks_regs[$index].cfg_txt" type="text" class="form-control" id="hook_cfg">
+        </div>
+        <div class="checkbox">
+          <label>
+            <input ng-model="hooks_regs[$index].is_enabled" type="checkbox"> Enabled
+          </label>
+        </div>
+        <button ui-ladda="hooks_regs[$index].loading" class="btn btn-primary ladda-button" data-style="expand-right" ng-class="{ disabled: !hooks_regs[$index].is_ready_to_submit}" ng-click="patch_hook_reg($index)">
+            <span class="ladda-label">Save</span>
+        </button>
+
+        <button type="submit" class="btn btn-danger" ng-click="delete_hook_reg($index)">Delete</button>
+        <p ng-show="hooks_regs[$index].is_cfg_malformed" class="help-block" style="color:#a94442">Cfg shud be a valid JSON</p>
+      </div>
+    </form>
+  </ANY>
+  <ANY ng-switch-when="false">
+    <div class="bs-callout bs-callout-warning">
+      <h4>No hooks found</h4>
+      <p>This case hase no registred hooks.</p>
+    </div>
+  </ANY>
+  <ANY ng-switch-default>
+    HA hA
+  </ANY>
+</ANY>
+
+<h3>
+  Create a new one
+</h3>
+  <form class="form-inline" role="form" name="new_hook_reg_form">
+      <div class="form-group">
+        <select class="form-control" 
+            ng-model="selected_hook_type"
+            ng-options="h as h.name for h in hooks">
+        </select>
+      </div>
+      <div class="form-group" ng-class="{ 'has-error' : hooks_regs[$index].is_cfg_malformed }">
+        <input ng-model="new_hook_reg.cfg_txt" type="text" class="form-control" id="new_hook_reg_cfg_txt">
+      </div>
+      <div class="checkbox">
+        <label>
+          <input ng-model="new_hook_reg.is_enabled" type="checkbox"> Enabled
+        </label>
+      </div>
+      <button ui-ladda="new_hook_reg.loading" class="btn btn-primary ladda-button" data-style="expand-right" ng-class="{ disabled: !new_hook_reg.is_ready_to_submit}" ng-click="post_hook_reg()">
+          <span class="ladda-label">Create</span>
+      </button>
+      <p ng-show="new_hook_reg.is_cfg_malformed" class="help-block" style="color:#a94442">Cfg shud be a valid JSON</p>
+  </form>
+</div>

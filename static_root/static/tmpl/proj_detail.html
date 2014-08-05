@@ -1,0 +1,25 @@
+<div class="container">
+  <div class="page-header">
+    <ol class="breadcrumb">
+      <li><a href="/cases" tooltip-placement="bottom" tooltip="cases list">cases</a></li>
+      <li class="active">{{t_case.name}}</li>
+    </ol>
+    <h2>{{t_case.name}}
+    <div class="btn-group pull-right">
+      <button type="button" class="btn btn-primary" ng-click="go_to_edit_page()">Edit</button>
+      <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+        <span class="caret"></span>
+      </button>
+      <ul class="dropdown-menu" role="menu">
+        <li><a href="#">Clone</a></li>
+      </ul>
+    </div>
+    </h2>
+    {{t_case.descr}}
+  </div>
+  <br><br>
+  <strong>Root test id:</strong>{{t_case.root_test_id}}<br> 
+  <strong>Etalon test id:</strong>{{t_case.etalon_test_id}}<br>
+  <strong>Oracle:</strong>
+  <div hljs source=t_case.oracle_pp></div>
+</div>

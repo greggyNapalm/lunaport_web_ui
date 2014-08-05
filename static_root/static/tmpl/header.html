@@ -1,0 +1,28 @@
+<!-- Fixed navbar -->
+<div class="navbar navbar-default navbar-fixed-top">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/">Lunaport Beta</a>
+    </div>
+    <div class="collapse navbar-collapse" ng-controller="SettingsCtrl">
+      <ul class="nav navbar-nav">
+        <li ng-class="{ active: isActive('/tests')}"><a href="/tests">Tests</a></li>
+        <li ng-class="{ active: isActive('/cases')}"><a href="/cases">Cases</a></li>
+        <li ng-class="{ active: isActive('/ammos')}"><a href="/ammos">Ammos</a></li>
+      </ul>
+    <ul class="nav navbar-nav navbar-right" ng-controller="SettingsCtrl">
+      <li><img height="28" width="28" style="border-radius: 4px" ng-src="{{usr_settings.avatar_url}}"> {{usr_settings.login}}</li>
+      <li data-title="Settings"><a href="/settings"><i class="glyphicon glyphicon-cog" tooltip-placement="bottom" tooltip="Account settings" style='font-size: 20px'></i></a></li>
+      <li data-title="Sign Out"><a href="https://logout.domain.ru"><i class="glyphicon glyphicon-off" tooltip-placement="bottom" tooltip="Sign out" style='font-size: 20px'></i></a></li>
+    </ul>
+    </div><!--/.nav-collapse -->
+    <div ng-controller="AlertCtrl" class="text-align: center">
+      <alert ng-repeat="alert in alerts" type="alert.type" close="closeAlert($index)">{{alert.msg}}</alert>
+    </div>
+  </div>
+</div>

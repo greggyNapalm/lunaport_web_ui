@@ -1,0 +1,49 @@
+<div class="container">
+  <div class="row" scroll-spy>
+      <div class="col-md-9 content">
+          <div class="page-header header-borderless">
+            <h2>New case
+            <!--
+            <button type="button" class="btn btn-primary pull-right" ng-class="{ disabled: !ready_to_submit}" ng-click="post_resources()">Submit</button>
+            -->
+            </h2>
+          </div>
+          <div class="page-header header-borderless">
+            <form class="form-horizontal bs-example" role="form" name="case_form">
+              <div class="form-group">
+                <label class="col-lg-2 control-label">
+                  Name
+                  <span class="asterisk">*</span>
+                </label>
+                <div class="col-lg-10">
+                  <input name="name" type="text" ng-model="t_case.name" class="form-control" placeholder="Name" required>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-lg-2 control-label">
+                  Description
+                  <span class="asterisk">*</span>
+                </label>
+                <div class="col-lg-10">
+                  <input name="descr" type="text" ng-model="t_case.descr" class="form-control" placeholder="Description" required>
+                </div>
+              </div>
+              <label class="col-lg-2 control-label">
+                Oracle
+                <span class="asterisk">*</span>
+              </label>
+              <div ui-ace="{
+                useWrapMode : true,
+                showGutter: true,
+                theme:'github',
+                mode: 'json',
+                onLoad: ace_loaded,
+                onChange: ace_changed
+              }" style="height: {{ace_height}}px">
+              </div>
+            </form>
+            <button type="button" class="btn btn-primary pull-right" ng-class="{ disabled: !ready_to_submit}" ng-click="post_resources()">Submit</button>
+          </div>
+      </div>
+  </div>
+</div>

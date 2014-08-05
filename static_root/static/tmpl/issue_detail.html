@@ -1,0 +1,94 @@
+<div class="container">
+  <div class="page-header">
+    <h2>
+      <a href="{{issue.tracker_url}}">{{issue.name}}</a>
+    </h2>
+    {{issue.descr}}
+  </div>
+  <div class="row" scroll-spy>
+      <div class="col-md-3 sidebar">
+        <div class="bs-sidebar hidden-print" role="complementary" ui-scrollfix>
+          <ul class="nav bs-sidenav">
+              <li spy="overview">
+                <a scroll-to="overview">Overview</a>
+              </li>
+              <li spy="tests">
+                <a scroll-to="tests">Tests</a>
+              </li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-md-9 content">
+          <div class="page-header">
+            <h1 id="overview">Overview</h1>
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Value</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>reporter</td>
+                  <td>
+                    <img height="28" width="28" style="border-radius: 4px" ng-src="{{issue.reporter_avatar_url}}">
+                    {{issue.reporter}}
+                  </td>
+                </tr>
+                <tr>
+                  <td>assignee</td>
+                  <td>
+                    <img height="28" width="28" style="border-radius: 4px" ng-src="{{issue.assignee_avatar_url}}">
+                    {{issue.assignee}}
+                  </td>
+                </tr>
+                <tr>
+                  <td>closed</td>
+                  <td>{{issue.closed}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="page-header header-borderless">
+            <h1 id="tests">Tests</h1>
+            <div ng-controller="TestListCtrl">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th></th>
+                    <th>id - name</th>
+                    <th>status</th>
+                    <th>initiator</th>
+                    <th>case</th>
+                    <th>finished_at</th>
+                  </tr>
+                </thead>
+                <tr ng-repeat="t in testLstTbl.content">
+                  <td><span class="test-resolution-{{t.resolution}}"></span></td>
+                  <td>
+                    <a href="/tests/{{t.id}}/all">{{t.id}} - {{t.name | characters:45 :true}}</a></li>
+                  </td>
+                  <td>{{t.status}}</td>
+                  <td>{{t.initiator}}</td>
+                  <td>{{t.case}}</td>
+                  <td tooltip-placement="left" tooltip="{{t.finished_at.long}}">{{t.finished_at.short}}</td>
+                </tr>
+              </table>
+              <div style="text-align: center">
+                <div class="btn-group" style="text-align: center">
+                    <button type="button" class="btn btn-primary" ng-model="testLstTbl.perPage" btn-radio="10">10</button>
+                    <button type="button" class="btn btn-primary" ng-model="testLstTbl.perPage" btn-radio="20">20</button>
+                    <button type="button" class="btn btn-primary" ng-model="testLstTbl.perPage" btn-radio="50">50</button>
+                    <button type="button" class="btn btn-primary" ng-model="testLstTbl.perPage" btn-radio="100">100</button>
+                </div>
+              </div>
+              <ul class="pager">
+                <li class="next" ng-class="testLstTbl.nextBtnClass" ng-click="testLstTbl.goNext()"><a href="#">Older &rarr;</a></li>
+                <li class="previous" ng-class="testLstTbl.prevBtnClass" ng-click="testLstTbl.goPrev()"><a href="#">&larr; Newer</a></li>
+              </ul>
+            </div>
+          </div>
+      </div>
+  </div>
+</div>

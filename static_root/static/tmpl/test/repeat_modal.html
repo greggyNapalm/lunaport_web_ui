@@ -1,0 +1,89 @@
+<div>
+  <div ng-switch on="test_posted">
+    <div ng-switch-when="null">
+      <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="cancel()">&times;</button>
+          <h3>
+            Load test config
+            <button popover-placement="bottom" popover="{{popover.test_cfg}}" class="btn btn-default btn-xs">?</button>
+          </h3>
+      </div>
+      <div class="modal-body">
+        <form class="form-horizontal" name="token_form">
+            <div ui-ace="{
+              useWrapMode : true,
+              showGutter: true,
+              theme: 'github',
+              mode: 'json',
+              onLoad: ace_loaded,
+              onChange: ace_changed
+            }" style="height: {{ace_height}}px">
+            </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button ui-ladda="t_post_loading" class="btn btn-primary ladda-button" data-style="expand-right" ng-click="post_force(true)">
+            <span class="ladda-label">Start</span>
+        </button>
+          <!--
+          <button class="btn btn-primary" ng-class="{ disabled: !editor.ready_to_save}" ng-click="post_force(load_cfg)">Start</button>
+          -->
+      </div>
+    </div>
+    <div ng-switch-when="true">
+      <div class="modal-header">
+          <h3>Test scheduled successfully</h3>
+      </div>
+      <div class="modal-body">
+        <a href="/tests/{{test.id}}/all">#{{test.id}} test page</a>
+      </div>
+      <div class="modal-footer">
+          <button class="btn btn-success" ng-click="ok()">Done</button>
+      </div>
+    </div>
+    <div ng-switch-when="false">
+      <div class="modal-header">
+          <h3>API call failed</h3>
+      </div>
+      <div class="bs-callout bs-callout-danger">
+        <h4>{{api_error.error_type || "-"}}</h4>
+        {{api_error.error_text || "-"}}
+      </div>
+      <div class="modal-footer">
+          <button class="btn btn-primary" ng-click="back_to_edit()">Back to edit</button>
+          <button class="btn btn-warning" ng-click="ok()">Done</button>
+      </div>
+    </div>
+    <div ng-switch-when="warning">
+      <div class="modal-header">
+          <h3>Config warning</h3>
+      </div>
+      <div class="bs-callout bs-callout-danger">
+        <h4>Генератор нагрузки и мишень могут находиться в разных очередях</h4>
+        Исходя из сожержимого конфига приложениене не может быть уверено что танк и мишень будут находиться в одной очереди. Это сообщение носит уведомительный харрактер, вы можете продолжить тест с текущим конфигом, но если вы выбрали танк случайно и не уверены в правильности своего решения, проконсультируйтесь с сотрудниками отдела нагрузочного тестирования @load.<br>
+      </div>
+      <table class="table table-hover">
+        <colgroup>
+          <col class="col-xs-6">
+          <col class="col-xs-7">
+        </colgroup>
+        <thead>
+          <tr>
+            <th>hostname</th>
+            <th>line</th>
+          </tr>
+        </thead>
+        <tr ng-repeat="host in host_to_line">
+          <td>{{host[0]}}</td>
+          <td>{{host[1]}}</td>
+        </tr>
+      </table>
+      <div class="modal-footer">
+          <button class="btn btn-default" ng-click="back_to_edit()">Back to edit</button>
+          <button ui-ladda="t_post_loading" class="btn btn-primary ladda-button" data-style="expand-right" ng-click="post_force(false)">
+              <span class="ladda-label">Continue</span>
+          </button>
+      </div>
+    </div>
+  </div>
+</div>

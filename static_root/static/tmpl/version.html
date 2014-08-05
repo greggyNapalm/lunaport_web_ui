@@ -1,0 +1,42 @@
+<div class="container">
+  <h2>Version</h2>
+  <h3>Client side</h3>
+  <table class="table table-bordered table-striped">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Value</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>environment</td>
+        <td>{{client_version.env}}</td>
+      </tr>
+      <tr>
+        <td>Git tag</td>
+        <td>{{client_version.tag}}</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Server side</h3>
+  <table class="table table-bordered table-striped">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Value</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>environment</td>
+        <td>{{srv.app.environment}}</td>
+      </tr>
+      <tr>
+        <td>Git tag</td>
+        <td>{{srv.app.tag}}</td>
+      </tr>
+    </tbody>
+  </table>
+
+</div>

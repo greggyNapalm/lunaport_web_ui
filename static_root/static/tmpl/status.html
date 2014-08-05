@@ -1,0 +1,41 @@
+<div class="container" mousetrap-keypress="case_lst_tbl_pager">
+  <div class="page-header header-borderless">
+    <h1>
+      Status
+      <img ng-show="waiting.stat_resource" src="/static/img/ajax-loader.gif">
+    </h1>
+  </div>
+  <div ng-hide="waiting.stat_resource">
+    <ul class="footer-links">
+      <li>Started at</b>: {{status.uptime.started_at_local.long}}</li>
+      <li class="muted">·</li>
+      <li><a href="{{links.sentry}}">Sentry</a></li>
+      <li class="muted">·</li>
+      <li><a href="{{links.gray_log_production}}">Graylog</a></li>
+    </ul>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Module</th>
+          <th>Module version</th>
+          <th>Packet</th>
+          <th>Packet version</th>
+          <th>Changelog</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="m in status.modules">
+          <td>{{m.name}}</td>
+          <td>{{m.py_version}}</td>
+          <td>{{m.deb}}</td>
+          <td>{{m.deb_version}}</td>
+          <td>
+            <a href="{{m.changelog_lnk}}">Debian Changelog</a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    Celery ping:
+    {{status.celery.ping | json}}
+  </div>
+</div><!-- /container -->

@@ -1,0 +1,70 @@
+<div ng-controller="TestDetailEvaluationCtrl">
+<ANY ng-switch="evals_loading">
+  <ANY ng-switch-when="done">
+    <div ng-controller="TestDetailEvaluationCtrl">
+      <h2>
+        #{{eval_id}}
+        <button popover="{{popover.evaluantion}}" class="btn btn-default btn-xs">?</button>
+      </h2>
+      <table ng-table="tbl_eval" class="table table-bordered">
+        <tr ng-repeat="slice in tbl_data_eval" ng-class="{'success': slice.passed == true, 'danger': slice.passed == false}">
+          <td title="Name" sortable="name">{{slice.name}}</td>
+          <td title="Passed" sortable="passed">{{slice.passed}}</td>
+          <td title="msg">{{slice.msg}}</td>
+          <td title="arg">{{slice.arg}}</td>
+          <td title="kwrag">{{slice.kw}}</td>
+        </tr>
+      </table>
+
+      <h2>
+        Available test evaluantions
+        <button popover="{{popover.evaluantions_available}}" class="btn btn-default btn-xs">?</button>
+      </h2>
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>passed</th>
+            <th>added_at</th>
+          </tr>
+        </thead>
+        <tr ng-repeat="e in eval_list_tbl.content" ng-class="{'active': eval_id == e.id}" ng-click="update_eval_id(e.id)">
+          <td>{{e.id}}</td>
+          <td>{{e.passed}}</td>
+          <td>{{e.added_at_pp.long}}</td>
+        </tr>
+      </table>
+    </div>
+    <ANY ng-switch="eval_list_tbl.pagination">
+      <ANY ng-switch-when="false">
+      </ANY>
+      <ANY ng-switch-default>
+        <div style="text-align: center">
+          <div class="btn-group" style="text-align: center">
+              <button type="button" class="btn btn-primary" ng-model="eval_list_tbl.perPage" btn-radio="10">10</button>
+              <button type="button" class="btn btn-primary" ng-model="eval_list_tbl.perPage" btn-radio="20">20</button>
+              <button type="button" class="btn btn-primary" ng-model="eval_list_tbl.perPage" btn-radio="50">50</button>
+              <button type="button" class="btn btn-primary" ng-model="eval_list_tbl.perPage" btn-radio="100">100</button>
+          </div>
+        </div>
+        <ul class="pager">
+          <li class="next" ng-class="eval_list_tbl.nextBtnClass" ng-click="eval_list_tbl.goNext()"><a>Older &rarr;</a></li>
+          <li class="previous" ng-class="eval_list_tbl.prevBtnClass" ng-click="eval_list_tbl.goPrev()"><a>&larr; Newer</a></li>
+        </ul>
+      </ANY>
+    </ANY>
+  </ANY>
+  <ANY ng-switch-when="missing">
+    <div class="bs-callout bs-callout-warning">
+      <h4>Resource not found</h4>
+      <p>Not ready yet or not present. Call reduce if it should.</p>
+    </div>
+  </ANY>
+  <ANY ng-switch-default>
+    <div class="bs-callout bs-callout-warning">
+      <h4>Resource not found</h4>
+      <p>Not ready yet or not present. Call reduce if it should.</p>
+    </div>
+  </ANY>
+</ANY>
+</div>

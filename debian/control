@@ -1,0 +1,11 @@
+Source: lunaport-web-ui
+Section: misc
+Priority: extra
+Maintainer: Gregory Komissarov <gregory.komissarov@gmail.com>
+Build-Depends: cdbs, debhelper (>= 7.0.50~)
+Standards-Version: 3.9.2
+
+Package: lunaport-web-ui
+Architecture: all
+Depends: nginx (>=1.2.1-1)
+Description: Lunaport fontend (browser client). @see http://wiki.domain.ru/GrigorijjKomissarov/luna-port

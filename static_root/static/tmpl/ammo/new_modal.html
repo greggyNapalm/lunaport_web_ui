@@ -1,0 +1,65 @@
+<div>
+  <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="cancel()">&times;</button>
+      <h3>Create new Ammo resource</h3>
+      <ANY ng-switch="upload_error.trigger">
+        <ANY ng-switch-when="true">
+          <div class="bs-callout bs-callout-warning">
+            <h4>Ammo upload failed:</h4>
+            <p>{{upload_error.error_text}}</p>
+          </div>
+          <div ng-if="err_additional()">
+              <a href="ammo/null/{{upload_error.existing_ammo_hash}}/">Existing ammo page</a>
+          </div>
+        </ANY>
+        <ANY ng-switch-default>
+        </ANY>
+      </ANY>
+  </div>
+  <form class="modal-body form-horizontal bs-example form-modal" role="form" name="case_form">
+    <div class="form-group">
+      <label class="col-lg-2 control-label">
+        Case
+        <span class="asterisk">*</span>
+      </label>
+      <div class="col-lg-10">
+        <input name="case" type="text" ng-model="new_ammo.t_case" class="form-control" placeholder="Existing Lunaport case" typeahead="c.name for c in case_names_butch | filter:$viewValue |  limitTo:30" required>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-lg-2 control-label">
+        Description
+        <span class="asterisk">*</span>
+      </label>
+      <div class="col-lg-10">
+        <input name="descr" type="text" ng-model="new_ammo.descr" class="form-control" placeholder="Description" required>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-lg-2 control-label">Ammo file
+        <span class="asterisk">*</span>
+      </label>
+      <div class="col-lg-10">
+        <input type="file" ng-file-select="on_file_select($files)">
+      </div>
+    </div>
+  </form>
+  <div ng-show="files_to_upload != null">
+    <div class="sel-file" ng-repeat="f in files_to_upload">
+      <div class="progress">
+        <div class="progress-bar" role="progressbar" aria-valuenow="{{dynamic}}" aria-valuemin="0" aria-valuemax="100" style="width: {{dynamic}}%;">
+          {{dynamic}}%
+        </div>
+      </div>
+      {{f.name}} - size: {{f.size}}B - type: {{f.type}}
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button ui-ladda="a_post_loading" class="btn btn-primary ladda-button" data-style="expand-right" ng-click="create_ammo()">
+        <span class="ladda-label">Create</span>
+    </button>
+    <!--
+    <button class="btn btn-primary" ng-click="create_ammo()">Create</button>
+    -->
+  </div>
+</div>

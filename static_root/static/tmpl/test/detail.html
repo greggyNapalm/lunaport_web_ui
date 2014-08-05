@@ -1,0 +1,86 @@
+<div class="container">
+  <div class="row" scroll-spy>
+      <div class="col-md-3 sidebar">
+        <div class="bs-sidebar hidden-print" role="complementary" ui-scrollfix>
+          <ul class="nav bs-sidenav">
+              <li spy="statistics">
+                <a scroll-to="statistics">Statistics</a>
+              </li>
+              <li spy="evaluation">
+                <a scroll-to="evaluation">Evaluation</a>
+              </li>
+              <li spy="artifacts">
+                <a scroll-to="artifacts">Artifacts</a>
+              </li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-md-9 content">
+        <div class="page-header header-borderless">
+          <ol class="breadcrumb">
+            <li><a href="/cases/{{test.case_id}}" tooltip-placement="bottom" tooltip="case">{{test.case}}</a></li>
+            <li><a href="/issues/{{test.issue}}" tooltip-placement="bottom" tooltip="issue">{{test.issue}}</a></li>
+            <li class="active"><span tooltip-placement="bottom" tooltip="test">{{test.id}} - {{test.name | characters:40}}</span>
+            </li>
+            <li tooltip-placement="right" tooltip="ammo_tag">
+            <ANY ng-switch="flag.result_has_tags">
+              <ANY ng-switch-when="true">
+                <div class="btn-group">
+                  <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">
+                    {{curr_tag}}
+                    <span class="caret"></span>
+                  </button>
+                  <ul class="dropdown-menu">
+                    <li ng-repeat="tag in stat_tags">
+                      <a href="{{urls.stat_tags + tag}}">{{tag}}</a>
+                    </li>
+                  </ul>
+                </div>
+              </ANY>
+              <ANY ng-switch-default style="color: #999999">
+                {{curr_tag}}
+              </ANY>
+            </ANY>
+            </li>
+          </ol>
+          <h2><span class="test-resolution-{{test.resolution}}" style="margin: 0 5px 0 -15px; vertical-align middle;"></span>{{test.name}}
+          <div class="btn-group pull-right">
+            <button ng-click="open_repeat_modal()" type="button" class="btn btn-primary">Config</button>
+            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+              <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" role="menu">
+              <li ng-class="{ disabled: root_test_id_btn_disabled}" ng-click="root_test_id_btn_disabled || patch_case('root_test_id')"><a>Make root for case</a></li>
+              <li ng-class="{ disabled: etalon_test_id_btn_disabled}" ng-click="etalon_test_id_btn_disabled ||  patch_case('etalon_test_id')"><a>Make etalon for case</a></li>
+              <li><a>Add to compare</a></li>
+              <li class="divider"></li>
+              <li><a>Edit</a></li>
+              <li><a ng-click="call_reduce_job()">Re-check result</a></li>
+            </ul>
+          </div>
+          </h2>
+          {{test.descr}}
+        </div>
+          <div ng-include="'/static/tmpl/test/detail_overview.html'"></div>
+          <div class="page-header header-borderless">
+            <h1 id="statistics">Statistics</h1>
+            <ANY ng-switch="curr_tag">
+              <ANY ng-switch-when="*tags">
+                <div ng-include="'/static/tmpl/test/detail_statistics_tags.html'"></div>
+              </ANY>
+              <ANY ng-switch-default>
+                <div ng-include="'/static/tmpl/test/detail_statistics.html'"></div>
+              </ANY>
+            </ANY>
+          </div>
+          <div class="page-header header-borderless">
+            <h1 id="evaluation">Evaluation</h1>
+            <div ng-include="'/static/tmpl/test/detail_evaluation.html'"></div>
+          </div>
+          <div class="page-header header-borderless">
+            <h1 id="artifacts">Artifacts</h1>
+            <div ng-include="'/static/tmpl/test/detail_arts.html'"></div>
+          </div>
+      </div>
+  </div>
+</div>

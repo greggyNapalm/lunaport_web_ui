@@ -1,0 +1,109 @@
+<div ng-controller="TestDetailStatisticsCtrl">
+<ANY ng-switch="loading">
+  <ANY ng-switch-when="done">
+    <h4 id="userquantiles">
+      Distribution of response times - user quantiles
+      <button popover="{{popover.user_quantiles}}" class="btn btn-default btn-xs">?</button>
+    </h4>
+    <ANY ng-switch="user_quantiles_missing">
+      <ANY ng-switch-when="true">
+        <div class="bs-callout bs-callout-info">
+          <h4>Resource not found</h4>
+          <p><code>time_periods</code> yandex-tank config directive not defined.</p>
+        </div>
+      </ANY>
+      <ANY ng-switch-default>
+      <div ng-controller="TestDetailStatisticsCtrl">
+        <table ng-table="tbl_resp_distr_usr" class="table table-bordered table-striped">
+          <tr ng-repeat="slice in tbl_data_resp_distr_usr">
+            <td title="'Quantile ms'" sortable="quantile">{{slice.quantile}}</td>
+            <td class="num_cell" title="'%p'" sortable="percentile">{{slice.percentile.toFixed(2)}}</td>
+            <td class="num_cell" title="'%'" sortable="percentage">{{slice.percentage.toFixed(2)}}</td>
+            <td class="num_cell" title="Count" sortable="count">{{slice.count}}</td>
+          </tr>
+        </table>
+       </div>
+      </ANY>
+    </ANY>
+    <div ng-controller="TestDetailStatisticsCtrl">
+      <h4 id="standartpercentiles">
+        Distribution of response times - standart percentiles
+        <button popover="{{popover.standart_percentiles}}" class="btn btn-default btn-xs">?</button>
+      </h4>
+      <table ng-table="tbl_resp_distr_standart" class="table table-bordered table-striped">
+        <tr ng-repeat="slice in tbl_data_resp_distr_standart">
+          <td title="'Quantile ms'" sortable="quantile">{{slice.quantile}}</td>
+          <td class="num_cell" title="'%p'" sortable="percentile">{{slice.percentile.toFixed(2)}}</td>
+          <td class="num_cell" title="'%'" sortable="percentage">{{slice.percentage.toFixed(2)}}</td>
+          <td class="num_cell" title="Count" sortable="count">{{slice.count}}</td>
+        </tr>
+      </table>
+      <h4 id="socket_errno">
+        Distribution of Phantom socket errno
+        <button popover="{{popover.errno}}" class="btn btn-default btn-xs">?</button>
+      </h4>
+      <table ng-table="tbl_errno_distr" class="table table-bordered table-striped">
+        <tr ng-repeat="slice in tbl_data_errno_distr">
+          <td class="num_cell" title="Code" sortable="code">{{slice.code}}</td>
+          <td class="num_cell" title="'%'" sortable="percentage">{{slice.percentage.toFixed(2)}}</td>
+          <td class="num_cell" title="Count" sortable="count">{{slice.count}}</td>
+        </tr>
+      </table>
+      <h4 id="status_codes">
+        Distribution of HTTP responses status codes
+        <button popover="{{popover.http_status}}" class="btn btn-default btn-xs">?</button>
+      </h4>
+      <table ng-table="tbl_status_codes_distr" class="table table-bordered table-striped">
+        <tr ng-repeat="slice in tbl_data_status_codes_distr">
+          <td class="num_cell" title="Code" sortable="code">{{slice.code}}</td>
+          <td class="num_cell" title="'%'" sortable="percentage">{{slice.percentage.toFixed(2)}}</td>
+          <td class="num_cell" title="Count" sortable="count">{{slice.count}}</td>
+        </tr>
+      </table>
+      <h4 id="rtt_fractions">
+        RRT fractions
+        <button popover="{{popover.rtt_fracts}}" class="btn btn-default btn-xs">?</button>
+      </h4>
+      <table class="table table-bordered table-striped">
+        <thead>
+          <tr>
+            <th>Fraction name</th>
+            <th>%</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>connecting</td>
+            <td>{{test_stat.doc.rtt_fracts.connecting}}</a></td>
+          </tr>
+          <tr>
+            <td>sending</td>
+            <td>{{test_stat.doc.rtt_fracts.sending}}</a></td>
+          </tr>
+          <tr>
+            <td>waiting</td>
+            <td>{{test_stat.doc.rtt_fracts.waiting}}</a></td>
+          </tr>
+          <tr>
+            <td>receiving</td>
+            <td>{{test_stat.doc.rtt_fracts.receiving}}</a></td>
+          </tr>
+          <tr>
+            <td>Phantom overhead</td>
+            <td>{{test_stat.doc.phantom_exec_frac}}</a></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </ANY>
+  <ANY ng-switch-when="missing">
+    <div class="bs-callout bs-callout-warning">
+      <h4>Resource not found</h4>
+      <p>Not ready yet or not present. Call reduce if it should.</p>
+    </div>
+  </ANY>
+  <ANY ng-switch-default>
+    loading...
+  </ANY>
+</ANY>
+</div>

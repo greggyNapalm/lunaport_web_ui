@@ -1,0 +1,68 @@
+<div ng-controller="TestDetailStatisticsTagsCtrl">
+      <h4 id="standartpercentiles">
+        Distribution of response times - standart percentiles
+        <button popover="по вертикали - значения перцентилей<br>по горизонтали - квантили с
+        разбиением по тегам" class="btn btn-default btn-xs">?</button>
+      </h4>
+      <table ng-table="tbl_resp_distr_standart" class="table table-bordered table-striped">
+        <tr ng-repeat="slice in stats">
+          <td title="'tag / %p'">{{slice.tag}}</td>
+          <td class="num_cell" title="'100'">{{slice.resp_time[100].quantile}}</td>
+          <td class="num_cell" title="'99.99'">{{slice.resp_time[99.99].quantile}}</td>
+          <td class="num_cell" title="'99.9'">{{slice.resp_time[99.9].quantile}}</td>
+          <td class="num_cell" title="'99'">{{slice.resp_time[99].quantile}}</td>
+          <td class="num_cell" title="'98'">{{slice.resp_time[98].quantile}}</td>
+          <td class="num_cell" title="'95'">{{slice.resp_time[95].quantile}}</td>
+          <td class="num_cell" title="'90'">{{slice.resp_time[90].quantile}}</td>
+          <td class="num_cell" title="'85'">{{slice.resp_time[85].quantile}}</td>
+          <td class="num_cell" title="'80'">{{slice.resp_time[80].quantile}}</td>
+          <td class="num_cell" title="'75'">{{slice.resp_time[75].quantile}}</td>
+          <td class="num_cell" title="'50'">{{slice.resp_time[50].quantile}}</td>
+        </tr>
+      </table>
+
+      <h4 id="socket_errno">
+        Distribution of Phantom socket errno
+        <button popover="по вертикали - коды errno<br>по горизонтали - процентные доли с разбиением по тегам" class="btn btn-default btn-xs">?</button>
+      </h4>
+      <table ng-table="tbl_errno_distr"  class="mailFormedTable table table-bordered table-striped">
+          <thead>
+          <tr>
+              <th>tag</th>
+              <th ng-repeat="column in errno_columns" class="text-center sortable"> 
+                  {{column.title}}
+              </th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr ng-repeat="slice in stats">
+              <td>{{slice.tag}}</td>
+              <td ng-repeat="column in errno_columns">
+                  {{slice.errno[column.field].percentage.toFixed(2) || '-'}}
+              </td>
+          </tr>
+          </tbody>
+      </table>
+      <h4 id="status_codes">
+        Distribution of HTTP responses status codes
+        <button popover="по вертикали  - статус коды HTTP протокла<br> по горизонтали - процентные доли с разбиением по тегам" class="btn btn-default btn-xs">?</button>
+      </h4>
+      <table ng-table="tbl_http_codes_distr"  class="mailFormedTable table table-bordered table-striped">
+          <thead>
+          <tr>
+              <th>tag</th>
+              <th ng-repeat="column in http_columns" class="text-center sortable"> 
+                  {{column.title}}
+              </th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr ng-repeat="slice in stats">
+              <td>{{slice.tag}}</td>
+              <td ng-repeat="column in http_columns">
+                  {{slice.http_status[column.field].percentage.toFixed(2) || '-'}}
+              </td>
+          </tr>
+          </tbody>
+      </table>
+</div>
